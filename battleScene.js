@@ -21,21 +21,6 @@ function initBattle() {
   document.querySelector('#playerHealthBar').style.width = '100%'
   document.querySelector('#attacksBox').replaceChildren()
 
-const toggleAttacksBtn = document.getElementById('toggleAttacksBtn');
-const attacksBox = document.getElementById('attacksBox');
-
-toggleAttacksBtn.addEventListener('click', () => {
-  const isHidden = window.getComputedStyle(attacksBox).display === 'none';
-
-  if (isHidden) {
-    attacksBox.style.display = 'grid'; // Atur kembali ke grid sesuai CSS
-    toggleAttacksBtn.textContent = 'Sembunyikan Serangan';
-  } else {
-    attacksBox.style.display = 'none';
-    toggleAttacksBtn.textContent = 'Tampilkan Serangan';
-  }
-});
-
 
   const toggleBtn = document.getElementById('toggleStatsBtn');
 const statsPanel = document.getElementById('enemyStatsPanel');
