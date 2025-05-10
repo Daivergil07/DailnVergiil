@@ -70,32 +70,63 @@ charactersMap.forEach((row, i) => {
     // 1026 === villager
     
     if (symbol === 1026) {
-      characters.push(
-        new Character({
-          position: {
-            x: j * Boundary.width + offset.x,
-            y: i * Boundary.height + offset.y
-          },
-          image: villagerImg,
-          frames: {
-            max: 4,
-            hold: 60
-          },
-          scale: 3,
-          animate: true,
-          dialogue: ['Prabowo : ...', 'Prabowo : Hey mister, have you seen my friend Faiz']
-        })
-      )
+characters.push(
+  new Character({
+    position: { x: j * Boundary.width + offset.x, y: i * Boundary.height + offset.y },
+    image: villagerImg,
+    frames: { max: 4, hold: 60 },
+    scale: 3,
+    animate: true,
+    dialogue: [
+      'Prabowo : ...',
+      'Prabowo : Hey mister, have you seen my friend Faiz',
+      'Prabowo : He’s wearing a blue jacket and a cap.',
+      'Prabowo : Please let me know if you see him!'
+    ],
+    interactionAsset: {
+      dialogue: [
+        'Prabowo : ...',
+        'Prabowo : Hey mister, have you seen my friend Faiz',
+        'Prabowo : He’s wearing a blue jacket and a cap.',
+        'Prabowo : Please let me know if you see him!'
+      ],
+      voice: './audio/Discord notification - sound effect.mp3', // Suara untuk karakter ini
+      dialogueIndex: 0,  // Menyimpan posisi dialog yang sedang ditampilkan
+      onInteract: () => {
+        // Fungsi ini akan dipanggil saat interaksi dimulai
+        console.log('Interaksi dengan Prabowo dimulai');
+        
+        // Memutar suara menggunakan Howler.js
+        const interactSound = new Howl({
+          src: [this.voice],
+          volume: 1
+        });
+
+        // Memutar suara
+        interactSound.play();
+        
+        // Mengupdate dialog yang ditampilkan
+        updateDialogue();  // Fungsi untuk menampilkan dialog berikutnya
+      }
     }
+  })
+);
 
-else if (symbol === 1024) {
-  const interactSound = new Audio('Discord notification - sound effect.mp3');
-  interactSound.volume = 1;
+// Fungsi untuk memperbarui dialog berdasarkan interaksi
+function updateDialogue() {
+  const character = characters[0];  // Misalnya mengambil karakter pertama
+  const dialogueBox = document.getElementById('dialogueBox');  // Menyimpan elemen kotak dialog
+  
+  if (character.interactionAsset.dialogueIndex < character.interactionAsset.dialogue.length - 1) {
+    // Pindah ke dialog berikutnya
+    character.interactionAsset.dialogueIndex++;
+    dialogueBox.textContent = character.interactionAsset.dialogue[character.interactionAsset.dialogueIndex];
+  } else {
+    // Jika dialog selesai, bisa memberi pesan atau melakukan aksi lain
+    dialogueBox.textContent = 'Prabowo : Thanks for your help!';
+  }
+}
 
-  // Menambahkan listener untuk memastikan audio siap diputar
-  interactSound.addEventListener('canplaythrough', () => {
-    console.log('Audio siap diputar');
-  });
 
   characters.push(
     new Character({
