@@ -184,3 +184,18 @@ document.querySelector('#dialogueBox').addEventListener('click', (e) => {
     queue.shift()
   } else e.currentTarget.style.display = 'none'
 })
+const tutorialHTML = `
+  <div id="tutorialBox" style="display: none; position: absolute; top: 50px; left: 50%; transform: translateX(-50%); background: white; padding: 20px; border: 2px solid black; z-index: 1000; max-width: 300px;">
+    <h2>📖 Panduan Bermain</h2>
+    <p>🎮 Gunakan tombol arah (WASD / Virtual D-Pad) untuk bergerak.</p>
+    <p>⚔️ Jelajahi Rumput Untuk Melawan Para Musuh.</p>
+    <p>🤝 Tekan Spasi / Tombol 🤝 untuk berbicara dengan karakter.</p>
+    <button onclick="document.getElementById('tutorialBox').style.display = 'none'">Tutup</button>
+  </div>
+`;
+document.body.insertAdjacentHTML('beforeend', tutorialHTML);
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('tutorialBox').style.display = 'block';
+  }, 1000);
+});
