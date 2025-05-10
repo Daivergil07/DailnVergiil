@@ -127,7 +127,15 @@ function updateDialogue() {
   }
 }
 
+    // 1024 === Mas Anis with interaction sound
+    else if (symbol === 1024) {
+      const interactSound = new Audio('Discord notification - sound effect.mp3');
+      interactSound.volume = 1;
 
+      // Menambahkan listener untuk memastikan audio siap diputar
+      interactSound.addEventListener('canplaythrough', () => {
+        console.log('Audio siap diputar');
+      });
   characters.push(
     new Character({
       position: {
